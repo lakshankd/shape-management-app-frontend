@@ -33,7 +33,7 @@ const DashboardPage = () => {
   return (
     <>
       <div className="w-full flex justify-end">
-        <AddShapeDialog />
+        <AddShapeDialog onSuccess={fetchShapes} />
       </div>
       <div className="w-full flex">
         <DataTable

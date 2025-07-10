@@ -51,7 +51,6 @@ const UpdateShapeDialog = ({ shape, open, setOpen, onUpdateSuccess }) => {
 
   const onSubmit = async (data) => {
     try {
-      console.log(data);
       setLoading(true);
       setError(null);
       await updateShapeById(shape.id, data);
