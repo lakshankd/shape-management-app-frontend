@@ -49,21 +49,7 @@ export const data = {
     },
     {
       title: "Shape Dashboard",
-      url: "#",
-      items: [
-        {
-          title: "Create Shape",
-          url: "/dashboard/create",
-        },
-        {
-          title: "Update Shape",
-          url: "/dashboard/manage",
-        },
-        {
-          title: "Delete Shape",
-          url: "/dashboard/delete",
-        },
-      ],
+      url: "/dashboard",
     },
     {
       title: "Developed By",

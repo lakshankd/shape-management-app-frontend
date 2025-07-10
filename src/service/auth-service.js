@@ -1,22 +1,19 @@
 import axiosInstance from "./axios";
 
 export const login = async (credentials) => {
-  const response = await axiosInstance.post("/auth/login", credentials);
-  console.log("login res::", response);
+  const response = await axiosInstance.post("v1/auth/login", credentials);
   localStorage.setItem("access_token", response.data.token);
   return response.data;
 };
 
 export const register = async (userData) => {
-  const response = await axiosInstance.post("/auth/register", userData);
-  console.log("register res::", response);
+  const response = await axiosInstance.post("v1/auth/register", userData);
   localStorage.setItem("access_token", response.data.token);
   return response.data;
 };
 
 export const authMe = async () => {
-  const response = await axiosInstance.post("/auth/register", userData);
-  localStorage.setItem("access_token", response.data.token);
+  const response = await axiosInstance.get("v1/auth/me");
   return response.data;
 };
 

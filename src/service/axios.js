@@ -18,7 +18,7 @@ axiosInstance.interceptors.response.use(
     if (
       error.response &&
       error.response.status === 401 &&
-      error.response.data?.message === "Token expired"
+      error.response.data?.message === "JWT token has expired"
     ) {
       localStorage.removeItem("access_token");
       window.location.href = "/login";
