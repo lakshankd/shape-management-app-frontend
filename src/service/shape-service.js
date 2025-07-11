@@ -19,3 +19,8 @@ export const updateShapeById = async (id, shapeData) => {
   const response = await axiosInstance.put(`v1/shapes/${id}`, shapeData);
   return response.data;
 };
+
+export const getOverlapShapes = async () => {
+  const response = await axiosInstance.get("v1/shapes/overlaps");
+  return response.data;
+};
