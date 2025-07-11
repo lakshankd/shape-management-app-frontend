@@ -41,6 +41,7 @@ const ShapesGraph = ({ shapeData }) => {
             );
           }
           case "RECTANGLE":
+          case "TRIANGLE":
           case "POLYGON": {
             const points = parsePoints(shape.coordinates);
 
