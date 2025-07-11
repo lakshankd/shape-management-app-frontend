@@ -36,7 +36,7 @@ import { createShape } from "@/service/shape-service";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
 import { SHAPE_OPTIONS } from "@/constants/constants";
 
-const AddShapeDialog = () => {
+const AddShapeDialog = ({ onSuccess }) => {
   const [open, setOpen] = useState(false);
   const form = useForm({
     resolver: zodResolver(shapeSchema),
@@ -58,6 +58,7 @@ const AddShapeDialog = () => {
       setError(null);
       await createShape(data);
       form.reset();
+      onSuccess?.();
       setOpen(false);
     } catch (error) {
       setError(error?.response?.data?.message || "Failed to create shape");

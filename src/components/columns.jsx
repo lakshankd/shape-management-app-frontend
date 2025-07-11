@@ -48,6 +48,10 @@ export const shapeTableColumns = (onDeleteSuccess, onUpdateSuccess) => [
   {
     accessorKey: "radius",
     header: "Radius",
+    cell: ({ row }) => {
+      const radius = row.getValue("radius");
+      return radius != null ? radius : "-";
+    },
   },
   {
     id: "actions",
@@ -68,11 +72,11 @@ export const shapeTableColumns = (onDeleteSuccess, onUpdateSuccess) => [
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => setDeleteDialogOpen(true)}>
-                Delete
-              </DropdownMenuItem>
               <DropdownMenuItem onClick={() => setUpdateDialogOpen(true)}>
                 Update
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setDeleteDialogOpen(true)}>
+                Delete
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

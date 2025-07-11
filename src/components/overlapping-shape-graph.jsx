@@ -1,5 +1,5 @@
-import { Mafs, Coordinates, Point, Polygon, Circle, Text } from "mafs";
-import "mafs/core.css";
+import { Circle, Coordinates, Mafs, Polygon, Text } from "mafs";
+import React from "react";
 
 const parsePoints = (str) =>
   str.split(";").map((pair) => {
@@ -7,7 +7,9 @@ const parsePoints = (str) =>
     return [x, y];
   });
 
-const ShapesGraph = ({ shapeData }) => {
+const OverlappingShapeGraph = ({ shapeData, overlapData }) => {
+  const overlappingShapeIds = overlapData?.overlappingShapeIds || [];
+
   return (
     <Mafs
       viewBox={{ x: [-10, 10], y: [-10, 10], padding: 10 }}
@@ -18,24 +20,28 @@ const ShapesGraph = ({ shapeData }) => {
     >
       <Coordinates.Cartesian />
       {shapeData.map((shape) => {
+        const isOverlapping = overlappingShapeIds.includes(shape.id);
+
         switch (shape.type) {
           case "CIRCLE": {
             const [x, y] = shape.coordinates.split(",").map(Number);
             return (
               <g key={shape.id}>
                 <Circle
-                  key={shape.id}
                   center={[x, y]}
                   radius={shape.radius}
                   strokeStyle="dashed"
+                  color={isOverlapping ? "red" : "blue"}
+                  fillOpacity={isOverlapping ? 0.2 : 0.1}
+                  fill={isOverlapping ? "red" : "blue"}
                 />
                 <Text
                   x={x}
                   y={y + (shape.radius || 1) + 0.1}
                   size={14}
-                  color="green"
+                  color={isOverlapping ? "red" : "green"}
                 >
-                  {shape.name || `Circle ${index + 1}`}
+                  {shape.name}
                 </Text>
               </g>
             );
@@ -52,11 +58,18 @@ const ShapesGraph = ({ shapeData }) => {
               <g key={shape.id}>
                 <Polygon
                   points={points}
-                  fillOpacity={0.3}
+                  fillOpacity={isOverlapping ? 0.3 : 0.1}
                   strokeStyle="solid"
+                  color={isOverlapping ? "red" : "blue"}
+                  fill={isOverlapping ? "red" : "blue"}
                 />
-                <Text x={centroidX} y={centroidY} size={14} color="red">
-                  {shape.name || `${shape.type} ${index + 1}`}
+                <Text
+                  x={centroidX}
+                  y={centroidY}
+                  size={14}
+                  color={isOverlapping ? "red" : "green"}
+                >
+                  {shape.name}
                 </Text>
               </g>
             );
@@ -69,4 +82,4 @@ const ShapesGraph = ({ shapeData }) => {
   );
 };
 
-export default ShapesGraph;
+export default OverlappingShapeGraph;
